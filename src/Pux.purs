@@ -10,6 +10,7 @@ module Pux
   , mapState
   , mapEffects
   , renderToDOM
+  , renderToDOMElement
   , renderToString
   , start
   , toReact
@@ -24,6 +25,7 @@ import Data.Foldable (foldl, sequence_)
 import Data.Function.Uncurried (Fn3, runFn3)
 import Data.List (List(Nil), singleton, (:), reverse, fromFoldable)
 import Data.Maybe (fromJust)
+import DOM.Node.Types (Element)
 import Partial.Unsafe (unsafePartial)
 import Prelude (Unit, ($), (<<<), map, pure)
 import Prelude as Prelude
@@ -142,6 +144,8 @@ mapEffects action effmodel =
   { state: effmodel.state, effects: map (map action) effmodel.effects }
 
 foreign import renderToDOM :: forall a eff. String -> Signal (Html a) -> Eff eff Unit
+
+foreign import renderToDOMElement :: forall a eff. Element -> Signal (Html a) -> Eff eff Unit
 
 foreign import renderToString :: forall a eff. Signal (Html a) -> Eff eff String
 

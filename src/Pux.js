@@ -20,11 +20,15 @@ function reactClass(htmlSignal) {
 }
 
 exports.renderToDOM = function (selector) {
+  return exports.rendertoDOMElement(document.querySelector(selector))
+};
+
+exports.renderToDOMElement = function (targetElem) {
   var ReactDOM = (typeof require === 'function' && require('react-dom'))
               || (typeof window === 'object' && window.ReactDOM);
   return function (htmlSignal) {
     var elem = React.createElement(reactClass(htmlSignal));
-    ReactDOM.render(elem, document.querySelector(selector))
+    ReactDOM.render(elem, targetElem)
     return function () {};
   };
 };
